@@ -3,6 +3,7 @@ import { OfertasService } from '../services/ofertas.service';
 import { Observable, Subject, of } from 'rxjs';
 import { Oferta } from '../model/oferta.model';
 import { switchMap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-topo',
@@ -11,9 +12,8 @@ import { switchMap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/
   providers: [OfertasService]
 })
 export class TopoComponent implements OnInit {
-  public ofertas: Observable<Oferta[]>;
   private subjectPesquisa: Subject<string> = new Subject<string>();
-  public responseOfertas: Oferta[];
+  public ofertas: Observable<Oferta[]>;
 
   constructor(private ofertasService: OfertasService) { }
 
@@ -29,18 +29,15 @@ export class TopoComponent implements OnInit {
 
         return this.ofertasService.pesquisaOfertas(termo)
       }),
-      catchError((erro) => {
-        return of<Oferta[]>([]);
-      })
+      catchError((erro) => of<Oferta[]>([]))
     )
-
-    this.ofertas.subscribe((response: Oferta[]) => {
-      this.responseOfertas = response;
-      console.log(this.responseOfertas)
-    })
   }
 
   pesquisa(termo: string) {
     this.subjectPesquisa.next(termo)
+  }
+
+  limparPesquisa() {
+    this.subjectPesquisa.next("");
   }
 }
