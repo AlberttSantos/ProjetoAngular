@@ -26,6 +26,8 @@ export class OrdemCompraComponent implements OnInit {
   public formaPagamentoEstado: boolean = true;
   public formularioValido: string = "disabled";
 
+  public idPedido: number;
+
   constructor(private ordemCompraService: OrdemCompraService) { }
 
   ngOnInit() {
@@ -90,7 +92,11 @@ export class OrdemCompraComponent implements OnInit {
 
   confirmar() {
     let pedido = new Pedido(this.endereco, this.numero, this.complemento, this.formaPagamento);
-    this.ordemCompraService.efetivarCompra(pedido);
+
+    this.ordemCompraService.efetivarCompra(pedido)
+      .subscribe((response: number) => {        
+        this.idPedido = response;
+      });
   }
 
 }

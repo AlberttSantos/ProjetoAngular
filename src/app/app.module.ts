@@ -17,6 +17,8 @@ import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
+import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
+import { FormsModule } from "@angular/forms"
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
     ComoUsarComponent,
     OndeFicaComponent,
     DescricaoReduzida,
-    OrdemCompraComponent
+    OrdemCompraComponent,
+    OrdemCompraSucessoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]

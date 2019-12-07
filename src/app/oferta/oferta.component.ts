@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { OfertasService } from '../services/ofertas.service';
 import { Oferta } from '../model/oferta.model';
-import { FnParam } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-oferta',
