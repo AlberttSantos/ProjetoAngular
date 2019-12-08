@@ -220,6 +220,20 @@
       "complemento": "teste",
       "formaPagamento": "debito",
       "id": 5
+    },
+    {
+      "endereco": "jose da silva",
+      "numero": "2",
+      "complemento": "casa",
+      "formaPagamento": "dinheiro",
+      "id": 6
+    },
+    {
+      "endereco": "teste",
+      "numero": "teste",
+      "complemento": "teste",
+      "formaPagamento": "dinheiro",
+      "id": 7
     }
   ]
 }
