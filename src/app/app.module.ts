@@ -18,7 +18,7 @@ import ptBr from '@angular/common/locales/pt';
 import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
 import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component';
 import { OrdemCompraSucessoComponent } from './ordem-compra-sucesso/ordem-compra-sucesso.component';
-import { FormsModule } from "@angular/forms"
+import { ReactiveFormsModule } from "@angular/forms"
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { FormsModule } from "@angular/forms"
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { OrdemCompraService } from '../services/ordem-compra.service';
-import { Pedido } from '../model/pedido.model';
+import { Component, OnInit } from '@angular/core';
+import { OrdemCompraService } from '../services/ordem-compra.service'
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Pedido } from "../model/pedido.model"
 
 @Component({
   selector: 'app-ordem-compra',
@@ -10,22 +10,38 @@ import { Pedido } from '../model/pedido.model';
   providers: [OrdemCompraService]
 })
 export class OrdemCompraComponent implements OnInit {
-  @ViewChild('formulario', { static: false }) public form: NgForm
+  public formulario: FormGroup = new FormGroup({
+    "endereco": new FormControl(null, [Validators.minLength(3), Validators.required]),
+    "numero": new FormControl(null, [Validators.required]),
+    "complemento": new FormControl(null),
+    "formaPagamento": new FormControl(null, [Validators.required])
+  })
+
   public idPedido: number;
 
   constructor(private ordemCompraService: OrdemCompraService) { }
 
   ngOnInit() {
+
   }
 
-  confirmar() {
+  confirmarCompra() {
+    if (this.formulario.status === 'INVALID') {
+      this.formulario.get('endereco').markAsTouched();
+      this.formulario.get('numero').markAsTouched();
+      this.formulario.get('complemento').markAsTouched();
+      this.formulario.get('formaPagamento').markAsTouched();
+
+      return;
+    }
+
     let pedido = new Pedido(
-      this.form.value.endereco,
-      this.form.value.numero,
-      this.form.value.complemento,
-      this.form.value.formaPagamento);
+      this.formulario.value.endereco,
+      this.formulario.value.numero,
+      this.formulario.value.complemento,
+      this.formulario.value.formaPagamento);
 
     this.ordemCompraService.efetivarCompra(pedido)
-      .subscribe((id: number) => this.idPedido = id);
+      .subscribe((id: number) => this.idPedido = id)
   }
 }

@@ -234,6 +234,27 @@
       "complemento": "teste",
       "formaPagamento": "dinheiro",
       "id": 7
+    },
+    {
+      "endereco": "rua 24",
+      "numero": "211",
+      "complemento": "casa",
+      "formaPagamento": "dinheiro",
+      "id": 8
+    },
+    {
+      "endereco": "teste",
+      "numero": "teste",
+      "complemento": "teste",
+      "formaPagamento": "dinheiro",
+      "id": 9
+    },
+    {
+      "endereco": "teste",
+      "numero": "21",
+      "complemento": "test",
+      "formaPagamento": "dinheiro",
+      "id": 10
     }
   ]
 }
