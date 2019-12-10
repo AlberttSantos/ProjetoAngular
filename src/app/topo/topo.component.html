@@ -12,12 +12,13 @@
             (keyup)="pesquisa(termoDaPesquisa.value)" />
           <ul class="list-group" style="position: absolute; z-index: 999">
             <li *ngFor="let oferta of ofertas | async" class="list-group-item">
-              <a [routerLink]="['/oferta', oferta.id]" (click)="limparPesquisa()"> {{oferta.titulo | descricaoReduzida: 0:10}} </a>
+              <a [routerLink]="['/oferta', oferta.id]" (click)="limparPesquisa()">
+                {{oferta.titulo | descricaoReduzida: 0:10}} </a>
             </li>
           </ul>
         </div>
         <div class="col-md-2">
-          <a a href="#"><img src="/assets/carrinho.png" /></a>
+          <a routerLink="ordem-compra"><img src="/assets/carrinho.png" /></a>
         </div>
       </div>
     </div>
