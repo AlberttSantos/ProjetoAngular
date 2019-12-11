@@ -27,4 +27,39 @@ export class CarrinhoService {
             this.itens.push(itemCarrinho);
         }
     }
+
+    getValorTotalCarrinho(): number {
+        let total: number = 0;
+
+        this.itens.map((item: ItemCarrinho) => {
+            total = (item.valor * item.quantidade) + total;
+        });
+
+        return total;
+    }
+
+    adicionarItem(item: ItemCarrinho) {
+        let itemEncontrato = this.itens.find((
+            itemCarrinho: ItemCarrinho) => itemCarrinho.id === item.id);
+
+        if (itemEncontrato)
+            itemEncontrato.quantidade++;
+    }
+
+    removerItem(item: ItemCarrinho) {
+        let itemEncontrato = this.itens.find((
+            itemCarrinho: ItemCarrinho) => itemCarrinho.id === item.id);
+
+        if (itemEncontrato) {
+            itemEncontrato.quantidade--;
+
+            if (itemEncontrato.quantidade === 0) {
+                this.itens.splice(this.itens.indexOf(itemEncontrato), 1)
+            }
+        }
+    }
+
+    removeAll() {
+        this.itens = [];
+    }
 }

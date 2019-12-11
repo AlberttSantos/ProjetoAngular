@@ -21,18 +21,11 @@ export class OrdemCompraComponent implements OnInit {
 
   public idPedido: number;
   public itensCarrinho: ItemCarrinho[];
-  public valorTotal: number = 0;
 
   constructor(private ordemCompraService: OrdemCompraService, private carrinhoService: CarrinhoService) { }
 
   ngOnInit() {
     this.itensCarrinho = this.carrinhoService.exibirItens();
-
-    console.log(this.itensCarrinho);
-
-    for (let item of this.itensCarrinho) {
-      this.valorTotal = (item.valor * item.quantidade) + this.valorTotal;
-    }
   }
 
   confirmarCompra() {
@@ -41,17 +34,27 @@ export class OrdemCompraComponent implements OnInit {
       this.formulario.get('numero').markAsTouched();
       this.formulario.get('complemento').markAsTouched();
       this.formulario.get('formaPagamento').markAsTouched();
-
-      return;
     }
+    else if (this.itensCarrinho.length === 0) {
+      alert("carrinho vazio")
+    }
+    else {
+      let pedido = new Pedido(
+        this.formulario.value.endereco,
+        this.formulario.value.numero,
+        this.formulario.value.complemento,
+        this.formulario.value.formaPagamento,
+        this.itensCarrinho);
 
-    let pedido = new Pedido(
-      this.formulario.value.endereco,
-      this.formulario.value.numero,
-      this.formulario.value.complemento,
-      this.formulario.value.formaPagamento);
+      this.ordemCompraService.efetivarCompra(pedido)
+        .subscribe((id: number) => {
+          this.idPedido = id
+          this.carrinhoService.removeAll();
+        })
+    }
+  }
 
-    this.ordemCompraService.efetivarCompra(pedido)
-      .subscribe((id: number) => this.idPedido = id)
+  removerItem(item: ItemCarrinho) {
+    this.carrinhoService.removerItem(item);
   }
 }
